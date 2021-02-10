@@ -7,13 +7,12 @@ import (
 	"runtime"
 )
 
-func number_server(add <-chan int, sub <-chan int, read chan<- int) {
+func numberServer(add <-chan int, sub <-chan int, read chan<- int) {
 	var number = 0
 
 	// This for-select pattern is one you will become familiar with...
 	for {
-		select {
-        }
+		select {}
 	}
 }
 
@@ -21,25 +20,33 @@ func incrementer(add chan<- int, finished chan<- bool) {
 	for j := 0; j < 1000000; j++ {
 		add <- 1
 	}
-	//TODO: signal that the goroutine is finished
+	finished <- true //DONE: signal that the goroutine is finished
 }
 
 func decrementer(sub chan<- int, finished chan<- bool) {
 	for j := 0; j < 1000002; j++ {
 		sub <- 1
 	}
-	//TODO: signal that the goroutine is finished
+	finished <- true //DONE: signal that the goroutine is finished
 }
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	// TODO: Construct the remaining channels
+	// DONE: Construct the remaining channels
 	read := make(chan int)
+	add := make(chan int)
+	sub := make(chan int)
+	finished := make(chan int)
 
-	// TODO: Spawn the required goroutines
+	// DONE: Spawn the required goroutines
+	go numberServer(add, sub, read)
+	go incrementer(add, finished)
+	go decrementer(sub, finished)
 
-	// TODO: block on finished from both "worker" goroutines
+	<-finished
+	<-finished
+	// DONE: block on finished from both "worker" goroutines
 
 	fmt.Println("The magic number is:", <-read)
 }
