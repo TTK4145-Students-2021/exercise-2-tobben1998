@@ -25,7 +25,7 @@ func incrementer(add chan<- int, finished chan<- bool) {
 }
 
 func decrementer(sub chan<- int, finished chan<- bool) {
-	for j := 0; j < 1000000+1; j++ {
+	for j := 0; j < 1000002; j++ {
 		sub <- 1
 	}
 	//TODO: signal that the goroutine is finished
