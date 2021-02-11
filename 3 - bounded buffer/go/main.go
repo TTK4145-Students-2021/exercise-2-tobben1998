@@ -29,7 +29,7 @@ func consumer(buffer <-chan int) {
 
 func main() {
 
-	// Done TODO: make a bounded buffer that can holde 5 elements
+	// Done TODO: make a bounded buffer that can hold 5 elements
 	boundedBuffer := make(chan int, 5)
 
 	go consumer(boundedBuffer)
