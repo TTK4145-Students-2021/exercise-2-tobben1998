@@ -1,3 +1,4 @@
+// cd " " in powrshell to navigate not just cd
 // Use `go run foo.go` to run your program
 
 package main
@@ -12,7 +13,14 @@ func numberServer(add <-chan int, sub <-chan int, read chan<- int) {
 
 	// This for-select pattern is one you will become familiar with...
 	for {
-		select {}
+		select {
+		case <-add:
+			number++
+		case <-sub:
+			number--
+		case read <- number:
+			return
+		}
 	}
 }
 
@@ -37,7 +45,7 @@ func main() {
 	read := make(chan int)
 	add := make(chan int)
 	sub := make(chan int)
-	finished := make(chan int)
+	finished := make(chan bool)
 
 	// DONE: Spawn the required goroutines
 	go numberServer(add, sub, read)
