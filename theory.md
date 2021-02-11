@@ -21,7 +21,7 @@ queue: is a linear data structure that store items in FIFO, and does not care ab
 mailboxes: You can have many different mailboxes and  they are quite similar to queues, but you can add som functionallity if you want. like blocking or binding, to limit the things that can be qued
 
 ### List some advantages of using message passing over lock-based synchronization primitives.
-> *Your answer here* ?????????????????????????????????
+> Across a distrubuted cluster it will often be better to use message passing over lock based, as it will often be faster, and easier to implement. This is beacuse message passing is more tolerant of higher communication latencies. As we should run serval elevators together messge passingwoulkd often be the preffered way.
 
 ### List some advantages of using lock-based synchronization primitives over message passing.
-> *Your answer here*??????????????????????????????????????????++
+> some advandategs of using locked base synchronization is that is easier to controll when there is critical information and both process use the same shared memory, so that two process does not try to change the varaiable at the same time. shared memory would be often be better on singel server, as it will often be easier and higher performance. and message passing woulkd often be better on a distributed cluster.
